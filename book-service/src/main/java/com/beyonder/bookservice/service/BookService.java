@@ -9,4 +9,6 @@ public interface BookService {
     List<BookEntity> getAll() ;
 
     BookEntity getById(Long id);
+
+    BookEntity create(BookEntity bookEntity);
 }

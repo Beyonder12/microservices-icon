@@ -8,4 +8,5 @@ import java.util.List;
 public interface BookService {
     List<BookEntity> getAll() ;
 
+    BookEntity getById(Long id);
 }

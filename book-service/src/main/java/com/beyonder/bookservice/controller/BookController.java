@@ -32,4 +32,10 @@ public class BookController {
     public BookEntity update(@RequestBody BookEntity bookEntity, @PathVariable Long id) {
         return bookService.update(bookEntity, id);
     }
+
+    @DeleteMapping("/{id}")
+    public String deleteById(@PathVariable Long id) {
+        bookService.deleteById(id);
+        return "Successfully deleted!";
+    }
 }

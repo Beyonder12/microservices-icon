@@ -35,4 +35,9 @@ public class BookServiceImpl implements BookService {
         bookEntity1.setName(bookEntity.getName());
         return bookRepository.save(bookEntity1);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        bookRepository.deleteById(id);
+    }
 }

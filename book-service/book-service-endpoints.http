@@ -21,3 +21,7 @@ Content-Type: application/json
   "author" : "Irfan",
   "name" : "Love in one night"
 }
+
+###
+
+DELETE localhost:8080/api/v1/books/3

@@ -27,4 +27,12 @@ public class BookServiceImpl implements BookService {
     public BookEntity create(BookEntity bookEntity) {
         return bookRepository.save(bookEntity);
     }
+
+    @Override
+    public BookEntity update(BookEntity bookEntity, Long id) {
+        BookEntity bookEntity1 = bookRepository.findById(id).get();
+        bookEntity1.setAuthor(bookEntity.getAuthor());
+        bookEntity1.setName(bookEntity.getName());
+        return bookRepository.save(bookEntity1);
+    }
 }

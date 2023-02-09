@@ -11,4 +11,6 @@ public interface BookService {
     BookEntity getById(Long id);
 
     BookEntity create(BookEntity bookEntity);
+
+    BookEntity update(BookEntity bookEntity, Long id);
 }

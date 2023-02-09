@@ -27,4 +27,9 @@ public class BookController {
     public BookEntity create(@RequestBody BookEntity bookEntity) {
         return bookService.create(bookEntity);
     }
+
+    @PutMapping("/{id}")
+    public BookEntity update(@RequestBody BookEntity bookEntity, @PathVariable Long id) {
+        return bookService.update(bookEntity, id);
+    }
 }

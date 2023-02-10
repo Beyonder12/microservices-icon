@@ -18,6 +18,5 @@ public class PersonEntity {
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "personEntity")
-    @JsonIgnore
     private AddressEntity addressEntity;
 }

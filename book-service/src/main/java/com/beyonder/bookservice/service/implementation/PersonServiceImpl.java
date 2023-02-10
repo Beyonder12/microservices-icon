@@ -25,6 +25,7 @@ public class PersonServiceImpl implements PersonService {
         personEntity.setAddressEntity(addressEntity);
         personRepository.save(personEntity);
         addressRepository.save(addressEntity);
+
         return personEntity;
     }
 

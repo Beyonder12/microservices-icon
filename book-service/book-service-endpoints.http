@@ -25,3 +25,18 @@ Content-Type: application/json
 ###
 
 DELETE localhost:8080/api/v1/books/3
+
+### person
+POST localhost:8080/api/v1/persons
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "street": "123 Main St",
+  "city": "San Francisco",
+  "state": "CA",
+  "zipCode": "94105"
+}
+
+###
+GET localhost:8080/api/v1/persons/1

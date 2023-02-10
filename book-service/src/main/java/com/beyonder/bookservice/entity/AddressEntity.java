@@ -1,10 +1,14 @@
 package com.beyonder.bookservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +21,6 @@ public class AddressEntity {
 
     @OneToOne
     @JoinColumn(name = "person_id")
+    @JsonIgnore
     private PersonEntity personEntity;
 }

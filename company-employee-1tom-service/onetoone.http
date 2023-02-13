@@ -1,0 +1,19 @@
+GET localhost:8080/api/v1/companies
+
+###
+
+POST localhost:8080/api/v1/companies
+Content-Type: application/json
+
+{
+  "name" : "ikon"
+}
+
+###
+
+POST localhost:8080/api/v1/companies/5/employees
+Content-Type: application/json
+
+{
+  "name": "John"
+}

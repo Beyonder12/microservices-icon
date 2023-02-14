@@ -1,0 +1,28 @@
+POST localhost:8081/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "username" : "beyonderadmin",
+  "email" : "fajri.illahi@zenrooms.com",
+  "password" : "Fajri@123",
+  "name" : "Fajri Illahi",
+  "role" : "admin"
+}
+
+###
+
+POST localhost:8081/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username" : "beyonderadmin",
+  "password" : "Fajri@123"
+}
+
+> {%
+client.global.set("token", response.body.data);
+%}
+###
+
+GET localhost:8081/api/v1/auth/all-users
+Authorization: Bearer {{token}}

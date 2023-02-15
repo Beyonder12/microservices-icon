@@ -1,4 +1,4 @@
-GET localhost:8080/api/v1/books
+GET localhost:8082/api/v1/books
 
 ###
 
@@ -40,3 +40,12 @@ Content-Type: application/json
 
 ###
 GET localhost:8080/api/v1/persons/16
+
+###
+GET localhost:8082/actuator/info
+
+###
+GET localhost:8082/actuator/health
+
+###
+GET localhost:8082/actuator

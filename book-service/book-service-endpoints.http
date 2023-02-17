@@ -49,3 +49,6 @@ GET localhost:8082/actuator/health
 
 ###
 GET localhost:8082/actuator
+
+###
+GET localhost:8089/api/v1/hello

@@ -18,7 +18,7 @@ import java.util.List;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
-public class BookControllerTest {
+class BookControllerTest {
 
     private MockMvc mockMvc;
 
@@ -29,24 +29,28 @@ public class BookControllerTest {
     private BookService bookService;
     @BeforeEach
     public void setup() {
+
         mockMvc = standaloneSetup(bookController).build();
     }
     @Test
-    public void testGetUsers() throws Exception {
-        BookEntity bookEntity1 = new BookEntity(1l, "Alice", "Alice");
-        BookEntity bookEntity2 = new BookEntity(2l, "Bob", "Alice");
+    void testGetAll() throws Exception {
+        //arrange
+        BookEntity bookEntity1 = new BookEntity(1l, "Physics", "Fajri");
+        BookEntity bookEntity2 = new BookEntity(2l, "Clean Code", "Bob");
         List<BookEntity> bookEntityList = List.of(bookEntity1, bookEntity2);
 
+        //act/invoke
         when(bookService.getAll()).thenReturn(bookEntityList);
 
+        //assert
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/books")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("[{\"id\":1,\"name\":\"Alice\",\"author\":\"Alice\"},{\"id\":2,\"name\":\"Bob\",\"author\":\"Alice\"}]"));
+                .andExpect(MockMvcResultMatchers.content().json("[{\"id\":1,\"name\":\"Physics\",\"author\":\"Fajri\"},{\"id\":2,\"name\":\"Clean Code\",\"author\":\"Bob\"}]"));
     }
 
     @Test
-    public void testGetUserById() throws Exception {
+    void testGetUserById() throws Exception {
 
         BookEntity bookEntity = new BookEntity(1L, "John Doe", "john.doe@example.com");
         when(bookService.getById(1L)).thenReturn(bookEntity);

@@ -1,0 +1,10 @@
+GET localhost:8086/lessons
+
+###
+POST localhost:8086/lessons
+Content-Type: application/json
+
+{
+  "make" : "Physics",
+  "name" : "Quantum"
+}

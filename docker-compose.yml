@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  authentication-service:
+    platform: 'linux/amd64'
+    image: 'authentication-service:latest'
+    container_name: authentication-service
+    build:
+      context: ./authentication-service
+      dockerfile: Dockerfile
+    depends_on:
+      - user-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://user-db:5432/user_db
+      - SPRING_DATASOURCE_USERNAME=user_db
+      - SPRING_DATASOURCE_PASSWORD=user_db
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SERVER_PORT=8081
+    expose:
+      - "8081"
+    ports:
+      - "8081:8081"
+  user-db:
+    image: 'postgres:15-alpine'
+    container_name: user-db
+    environment:
+      - POSTGRES_USER=user_db
+      - POSTGRES_PASSWORD=user_db
+      - POSTGRES_DB=user_db
+    volumes:
+      - user_db:/var/lib/postgresql/data
+    ports:
+      - "5438:5432"
+volumes:
+  user_db:

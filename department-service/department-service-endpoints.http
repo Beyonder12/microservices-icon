@@ -1,10 +1,16 @@
+GET https://department-service-beyonder12.cloud.okteto.net/api/v1/departments/test
+###
+
 GET http://localhost:8087/api/v1/departments/test
+###
+
+GET https://department-service-beyonder12.cloud.okteto.net/api/v1/departments
 ###
 
 GET http://localhost:8087/api/v1/departments
 ###
 
-POST localhost:8087/api/v1/departments
+POST https://department-service-beyonder12.cloud.okteto.net/api/v1/departments
 Content-Type: application/json
 
 {
@@ -13,4 +19,15 @@ Content-Type: application/json
   "departmentCode": "IT-006"
 }
 ###
+
+POST http://localhost:8087/api/v1/departments
+Content-Type: application/json
+
+{
+  "departmentName": "IT",
+  "departmentAddress": "3rd Cross, First Street",
+  "departmentCode": "IT-006"
+}
+###
+
 GET http://localhost:8087/api/v1/departments/3

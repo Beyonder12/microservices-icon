@@ -15,5 +15,19 @@ Content-Type: application/json
 }
 
 ###
+POST https://person-service-beyonder12.cloud.okteto.net/api/v1/persons
+Content-Type: application/json
+
+{
+"firstName": "Fajri",
+"lastName": "Illahi",
+"email": "fajri.illahiITB@gmail.com",
+"departmentId": 1
+}
+
+###
 GET localhost:8088/api/v1/persons/1
+###
+
+GET https://person-service-beyonder12.cloud.okteto.net/api/v1/persons/2
 ###

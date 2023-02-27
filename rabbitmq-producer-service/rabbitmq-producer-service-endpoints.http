@@ -1,0 +1,8 @@
+POST localhost:8084/api/v1/rabbitmq-producer/send-data
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "l"
+
+}

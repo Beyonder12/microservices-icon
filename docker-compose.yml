@@ -20,6 +20,83 @@ services:
       - "8081"
     ports:
       - "8081:8081"
+  rabbitmq-producer-service:
+    platform: 'linux/amd64'
+    image: 'rabbitmq-producer-service:latest'
+    container_name: rabbitmq-producer-service
+    build:
+      context: ./rabbitmq-producer-service
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - SPRING_RABBITMQ_VIRTUAL-host=/
+    expose:
+      - "8084"
+    ports:
+      - "8084:8084"
+  rabbitmq-consumer-service:
+    platform: 'linux/amd64'
+    image: 'rabbitmq-consumer-service:latest'
+    container_name: rabbitmq-consumer-service
+    build:
+      context: ./rabbitmq-consumer-service
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      #      port for amqp(advance message queueing protocol)
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - SPRING_RABBITMQ_VIRTUAL-host=
+    expose:
+      - "8086"
+    ports:
+      - "8086:8086"
+  department-service:
+    platform: 'linux/amd64'
+    image: 'department-service:latest'
+    container_name: department-service
+    build:
+      context: ./department-service
+      dockerfile: Dockerfile
+    depends_on:
+      - department-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://department-db:5432/department_db
+      - SPRING_DATASOURCE_USERNAME=department_db
+      - SPRING_DATASOURCE_PASSWORD=department_db
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SERVER_PORT=8087
+    expose:
+      - "8087"
+    ports:
+      - "8087:8087"
+  person-service:
+    platform: 'linux/amd64'
+    image: 'person-service:latest'
+    container_name: person-service
+    build:
+      context: ./person-service
+      dockerfile: Dockerfile
+    depends_on:
+      - person-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://person-db:5432/person_db
+      - SPRING_DATASOURCE_USERNAME=person_db
+      - SPRING_DATASOURCE_PASSWORD=person_db
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SERVER_PORT=8088
+    expose:
+      - "8088"
+    ports:
+      - "8088:8088"
   user-db:
     image: 'postgres:15-alpine'
     container_name: user-db
@@ -31,5 +108,43 @@ services:
       - user_db:/var/lib/postgresql/data
     ports:
       - "5438:5432"
+  department-db:
+    image: 'postgres:15-alpine'
+    container_name: department-db
+    environment:
+      - POSTGRES_USER=department_db
+      - POSTGRES_PASSWORD=department_db
+      - POSTGRES_DB=department_db
+    volumes:
+      - department_db:/var/lib/postgresql/data
+    ports:
+      - "5439:5432"
+  person-db:
+    image: 'postgres:15-alpine'
+    container_name: person-db
+    environment:
+      - POSTGRES_USER=person_db
+      - POSTGRES_PASSWORD=person_db
+      - POSTGRES_DB=person_db
+    volumes:
+      - person_db:/var/lib/postgresql/data
+    ports:
+      - "5440:5432"
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq-local'
+    expose:
+      - "15672"
+      - "5672"
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    volumes:
+      - rabbit_mq1:/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - rabbit_mq2:/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
 volumes:
   user_db:
+  department_db:
+  person_db:
+  rabbit_mq1:
+  rabbit_mq2:

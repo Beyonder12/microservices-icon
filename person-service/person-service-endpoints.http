@@ -1,0 +1,19 @@
+GET localhost:8088/api/v1/persons/test
+###
+
+GET localhost:8088/api/v1/persons
+###
+
+POST localhost:8088/api/v1/persons
+Content-Type: application/json
+
+{
+  "firstName": "Fajri",
+  "lastName": "Illahi",
+  "email": "fajri.illahiITB@gmail.com",
+  "departmentId": 4
+}
+
+###
+GET localhost:8088/api/v1/persons/1
+###

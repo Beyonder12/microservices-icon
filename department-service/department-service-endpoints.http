@@ -1,0 +1,16 @@
+GET http://localhost:8087/api/v1/departments/test
+###
+
+GET http://localhost:8087/api/v1/departments
+###
+
+POST localhost:8087/api/v1/departments
+Content-Type: application/json
+
+{
+  "departmentName": "IT",
+  "departmentAddress": "3rd Cross, First Street",
+  "departmentCode": "IT-006"
+}
+###
+GET http://localhost:8087/api/v1/departments/3

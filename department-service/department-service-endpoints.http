@@ -24,7 +24,7 @@ POST http://localhost:8087/api/v1/departments
 Content-Type: application/json
 
 {
-  "departmentName": "IT",
+  "departmentName": "Computer",
   "departmentAddress": "3rd Cross, First Street",
   "departmentCode": "IT-006"
 }

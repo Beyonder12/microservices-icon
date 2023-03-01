@@ -1,4 +1,4 @@
-APP_IMAGE_LIST ?= authentication-service rabbitmq-producer-service rabbitmq-consumer-service department-service person-service
+APP_IMAGE_LIST ?= authentication-service rabbitmq-producer-service rabbitmq-consumer-service department-service person-service kafka-consumer-service kafka-producer-service
 
 start : down remove up
 

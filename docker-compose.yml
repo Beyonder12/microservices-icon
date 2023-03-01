@@ -97,6 +97,48 @@ services:
       - "8088"
     ports:
       - "8088:8088"
+  kafka-producer-service:
+    platform: 'linux/amd64'
+    image: 'kafka-producer-service:latest'
+    container_name: kafka-producer-service
+    build:
+      context: kafka-producer-service
+      dockerfile: Dockerfile
+    depends_on:
+      - broker
+    environment:
+      - SERVER_PORT=8089
+      - SPRING_KAFKA_CONSUMER_GROUP-ID=tpd-logger
+      - SPRING_KAFKA_CONSUMER_AUTO-OFFSET-RESET=earliest
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=PLAINTEXT://broker:29092
+      - tpd.topic-name=advice-topic
+      - tpd.messages-per-request=10
+      - spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+      - spring.kafka.producer.value-serializer=org.springframework.kafka.support.serializer.JsonSerializer
+    expose:
+      - "8089"
+    ports:
+      - "8089:8089"
+  kafka-consumer-service:
+    platform: 'linux/amd64'
+    image: 'kafka-consumer-service:latest'
+    container_name: kafka-consumer-service
+    build:
+      context: kafka-consumer-service
+      dockerfile: Dockerfile
+    depends_on:
+      - broker
+    environment:
+      - SERVER_PORT=8090
+      - SPRING_KAFKA_CONSUMER_GROUP-ID=tpd-logger
+      - SPRING_KAFKA_CONSUMER_AUTO-OFFSET-RESET=earliest
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=PLAINTEXT://broker:29092
+      - tpd.topic-name=advice-topic
+      - tpd.messages-per-request=10
+    expose:
+      - "8090"
+    ports:
+      - "8090:8090"
   user-db:
     image: 'postgres:15-alpine'
     container_name: user-db
@@ -142,6 +184,32 @@ services:
     volumes:
       - rabbit_mq1:/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
       - rabbit_mq2:/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+  zookeeper:
+    image: confluentinc/cp-zookeeper
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+  broker:
+    image: confluentinc/cp-kafka
+    container_name: broker
+    ports:
+      # To learn about configuring Kafka for access across networks see
+      # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
+      - "9092:9092"
+      - "29092:29092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 volumes:
   user_db:
   department_db:

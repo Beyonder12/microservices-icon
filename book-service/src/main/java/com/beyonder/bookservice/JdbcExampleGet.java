@@ -2,7 +2,7 @@ package com.beyonder.bookservice;
 
 import java.sql.*;
 
-public class JdbcExample {
+public class JdbcExampleGet {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/book_db"; // JDBC connection URL
         String user = "root"; // database username

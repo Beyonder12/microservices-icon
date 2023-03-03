@@ -1,7 +1,7 @@
 class Node {
      val;
      left;
-     right;
+     right;g
     constructor(val, left, right) {
         this.val = val;
         this.left = left == null ? null : left;

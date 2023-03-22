@@ -34,7 +34,7 @@ class BookControllerTest {
     }
     @Test
     void testGetAll() throws Exception {
-        //arrange
+        //arrange (expected value)
         BookEntity bookEntity1 = new BookEntity(1l, "Physics", "Fajri");
         BookEntity bookEntity2 = new BookEntity(2l, "Clean Code", "Bob");
         List<BookEntity> bookEntityList = List.of(bookEntity1, bookEntity2);

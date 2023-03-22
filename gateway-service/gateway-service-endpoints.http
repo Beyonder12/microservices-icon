@@ -1,0 +1,29 @@
+POST localhost:8080/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "username" : "BeyonderAdmin",
+  "email" : "fajri.illahi@zenrooms.com",
+  "password" : "Fajri@123",
+  "name" : "Fajri Illahi",
+  "role" : "admin"
+}
+
+###
+
+POST localhost:8080/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username" : "BeyonderAdmin",
+  "password" : "Fajri@123"
+}
+
+###
+
+GET localhost:8080/api/v1/auth/all-users
+Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiQmV5b25kZXIxMjMiLCJleHAiOjE2NzExODk1MTYsImlhdCI6MTY3MTE4NTkxNiwic2NvcGUiOiIifQ.ucS4ctW6I9KjENHnM7Gb4xItE2kaWTQuEnW4CfBlB7Eq3s2HKVjb-Yix6rBMB4itJMI9fRqunzVa2ARVjntRiJTBxgdDsDFtHfvT0MDExG26p1S2OyOt5TQPIMAfF1f0FyDEDNoPWWOiHcpcxNkUASglapOJfnVM8JDJv-zJtIkbGIdW1VVAtifSV-9_aVDK0WSZPy-bnXgO0rB9St4gMTISeVpEqjxH4b3weCbL4uQ5bskXAgiVBZmXHO06nuRS11ECRxcaa6R7fCYahDkXwsYHVstketg6DNEoawbRvjHSRyB3QdCuFLtiYMGdDo6jUr8iN9Kuf6kh8_H6u54N-Q
+
+### lesson-service
+
+GET http://localhost:8080/api/v1/lessons/

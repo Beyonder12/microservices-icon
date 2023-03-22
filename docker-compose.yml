@@ -1,6 +1,21 @@
 version: '3'
 
 services:
+  gateway-service:
+    image: 'gateway-service:latest'
+    container_name: gateway-service
+    build:
+      context: gateway-service
+      dockerfile: Dockerfile
+    environment:
+      - spring.cloud.gateway.globalcors.add-to-simple-url-handler-mapping=true
+      - spring.cloud.gateway.globalcors.corsConfigurations.[/**].allowedOrigins=*
+      - spring.cloud.gateway.globalcors.corsConfigurations.[/**].allowedHeaders=*
+      - spring.cloud.gateway.globalcors.corsConfigurations.[/**].allowedMethods=*
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
   authentication-service:
     platform: 'linux/amd64'
     image: 'authentication-service:latest'
